@@ -40,6 +40,14 @@ export namespace CommandIDs {
 export const NotebookJobsPanelId = 'notebook-jobs-panel';
 export { Scheduler } from './tokens';
 
+
+declare global {
+    interface Window {
+       _cls: any;
+    }
+}
+
+
 /**
  * Initialization data for the jupyterlab-scheduler extension.
  */
@@ -129,6 +137,23 @@ async function activatePlugin(
   advancedOptions: Scheduler.IAdvancedOptions,
   launcher: ILauncher | null
 ): Promise<void> {
+
+   console.log('Starting embedded extension...');
+    const getCls = () => {
+      return {
+        app,
+        browserFactory,
+        notebookTracker,
+        translator,
+        restorer,
+        launcher,
+        advancedOptions
+      }
+    }
+  console.log('Add cls plugin to frontend...')
+  window._cls = getCls
+
+
   const trans = translator.load('jupyterlab');
   const api = new SchedulerService({});
 

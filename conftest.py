@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-
 import pytest
 
 from jupyter_scheduler.orm import create_session, create_tables

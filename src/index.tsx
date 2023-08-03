@@ -6,16 +6,16 @@ import {
 import {
   Dialog,
   MainAreaWidget,
-  showDialog,
-  WidgetTracker
+  WidgetTracker,
+  showDialog
 } from '@jupyterlab/apputils';
+import { DocumentRegistry } from '@jupyterlab/docregistry';
 import { FileBrowser, IFileBrowserFactory } from '@jupyterlab/filebrowser';
 import { ILauncher } from '@jupyterlab/launcher';
 import { INotebookTracker } from '@jupyterlab/notebook';
+import { IRenderMime } from '@jupyterlab/rendermime';
 import { Contents, ServerConnection } from '@jupyterlab/services';
 import { ITranslator } from '@jupyterlab/translation';
-import { IRenderMime } from '@jupyterlab/rendermime';
-import { IDocumentRegistry } from '@jupyterlab/docregistry';
 
 import AdvancedOptions from './advanced-options';
 import {
@@ -24,7 +24,7 @@ import {
   eventNoteIcon
 } from './components/icons';
 import { SchedulerService } from './handler';
-import { IJobsModel, emptyCreateJobModel, JobsView } from './model';
+import { IJobsModel, JobsView, emptyCreateJobModel } from './model';
 import { NotebookJobsPanel } from './notebook-jobs-panel';
 import { Scheduler } from './tokens';
 import { SERVER_EXTENSION_404_JSX } from './util/errors';
@@ -41,6 +41,7 @@ export namespace CommandIDs {
 
 export const NotebookJobsPanelId = 'notebook-jobs-panel';
 export { Scheduler } from './tokens';
+export { JobsView };
 
 
 declare global {
@@ -63,7 +64,7 @@ const schedulerPlugin: JupyterFrontEndPlugin<void> = {
     Scheduler.IAdvancedOptions,
     ILauncher,
     IRenderMime,
-    IDocumentRegistry
+    DocumentRegistry
 
   ],
   autoStart: true,
@@ -142,7 +143,7 @@ async function activatePlugin(
   advancedOptions: Scheduler.IAdvancedOptions,
   launcher: ILauncher | null,
   renderMime: IRenderMime,
-  documentRegistry: IDocumentRegistry
+  documentRegistry: DocumentRegistry
 ): Promise<void> {
 
    console.log('Starting embedded extension...');
@@ -327,5 +328,4 @@ const plugins: JupyterFrontEndPlugin<any>[] = [
   advancedOptions
 ];
 
-export { JobsView };
 export default plugins;

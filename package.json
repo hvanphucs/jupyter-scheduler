@@ -65,6 +65,8 @@
     "@jupyterlab/services": "^7",
     "@jupyterlab/translation": "^4",
     "@jupyterlab/ui-components": "^4",
+    "@jupyterlab/rendermime": "^4",
+    "@jupyterlab/docregistry": "^4",
     "@lumino/coreutils": "^2",
     "@lumino/polling": "^2",
     "@lumino/signaling": "^2",

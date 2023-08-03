@@ -14,6 +14,8 @@ import { ILauncher } from '@jupyterlab/launcher';
 import { INotebookTracker } from '@jupyterlab/notebook';
 import { Contents, ServerConnection } from '@jupyterlab/services';
 import { ITranslator } from '@jupyterlab/translation';
+import { IRenderMime } from '@jupyterlab/rendermime';
+import { IDocumentRegistry } from '@jupyterlab/docregistry';
 
 import AdvancedOptions from './advanced-options';
 import {
@@ -58,9 +60,12 @@ const schedulerPlugin: JupyterFrontEndPlugin<void> = {
     INotebookTracker,
     ITranslator,
     ILayoutRestorer,
-    Scheduler.IAdvancedOptions
+    Scheduler.IAdvancedOptions,
+    ILauncher,
+    IRenderMime,
+    IDocumentRegistry
+
   ],
-  optional: [ILauncher],
   autoStart: true,
   activate: activatePlugin
 };
@@ -135,7 +140,9 @@ async function activatePlugin(
   translator: ITranslator,
   restorer: ILayoutRestorer,
   advancedOptions: Scheduler.IAdvancedOptions,
-  launcher: ILauncher | null
+  launcher: ILauncher | null,
+  renderMime: IRenderMime,
+  documentRegistry: IDocumentRegistry
 ): Promise<void> {
 
    console.log('Starting embedded extension...');
@@ -147,7 +154,9 @@ async function activatePlugin(
         translator,
         restorer,
         launcher,
-        advancedOptions
+        advancedOptions,
+        renderMime,
+        documentRegistry,
       }
     }
   console.log('Add cls plugin to frontend...')
